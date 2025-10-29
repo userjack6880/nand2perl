@@ -1,3 +1,28 @@
+# Emulator Design
+
+Tick-Tock (Read-Write) Cycle
+
+Tick: read data from RAM/ROM and put into registers
+Tock: process data and write to RAM
+
+A little deviation from the HDL of the original nand2tetris design, the registers read in from the ALU, however, given the tick/dock of this emulator design, it takes 2 clock cycles to get data into the ALU (given it does calculations on the tock) - an internal `alu_busy` state indicates to the emulator that we're gonna take another clock cycle. When busy, the program counter will not increment.
+
+# Memory Design
+
+## ROM
+
+| Address   | Use         |
+|-----------|-------------|
+| 0 - 32767 | Program ROM |
+
+## RAM
+
+| Address       | Use    |
+|---------------|--------|
+| 0 - 16383     | Memory |
+| 16384 - 24575 | Screen |
+| 24574         | KBD    |
+
 # Hack Instruction Set
 
 ## A Instructions
@@ -86,11 +111,3 @@ A instructions set the A-register to whatever the operand is.
 | `JLE` | `1 1 0` | comp <= 0 |
 | `JMP` | `1 1 1` | always    |
 
-# Emulator Design
-
-Tick-Tock (Read-Write) Cycle
-
-Tick: read data from RAM/ROM and put into registers
-Tock: process data and write to RAM
-
-A little deviation from the HDL of the original nand2tetris design, the registers read in from the ALU, however, given the tick/dock of this emulator design, it takes 2 clock cycles to get data into the ALU (given it does calculations on the tock) - an internal `alu_busy` state indicates to the emulator that we're gonna take another clock cycle. When busy, the program counter will not increment.

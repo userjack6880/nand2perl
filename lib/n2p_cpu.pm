@@ -10,14 +10,14 @@ sub new {
   my $class = shift;
   my $self = {
     # registers
-    reg_a       => 0b0000000000000000,
-    reg_d       => 0b0000000000000000,
-    reg_pc      => 0b000000000000000,
+    reg_a       => 0,
+    reg_d       => 0,
+    reg_pc      => 0,
 
     # ALU
-    alu_in_y    => 0b0000000000000000,
-    alu_out     => 0b0000000000000000,
-    alu_busy    => 0b0,
+    alu_in_y    => 0,
+    alu_out     => 0,
+    alu_busy    => 0,
   };
   bless $self, $class;
   return $self;
@@ -150,7 +150,7 @@ sub tock {
       $self->{reg_pc} = $self->{reg_a};
     }
     else {
-      $self->{reg_pc}++;
+      $self->{reg_pc}++ if $self->{reg_pc} < 32767;
     }
 
     my $mem_out = ($ins_op && $ins_mr) ? 1 : 0;
