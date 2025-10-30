@@ -25,14 +25,8 @@ sub new {
 
 sub _debug {
   my $self = shift;
-
-  print "cpu state:\n";
-  printf "reg_a:        %016b\n", $self->{reg_a};
-  printf "reg_d:        %016b\n", $self->{reg_d};
-  printf "reg_pc:       %016b\n", $self->{reg_pc};
-  printf "alu_in_y:     %016b\n", $self->{alu_in_y};
-  printf "alu_out:      %016b\n", $self->{alu_out};
-  printf "alu_busy:     %01b\n",  $self->{alu_busy};
+  return $self->{reg_a}, $self->{reg_d}, $self->{reg_pc}, 
+    $self->{alu_in_y}, $self->{alu_out}, $self->{alu_busy};
 }
 
 sub _reset {
