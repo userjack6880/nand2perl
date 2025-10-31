@@ -3,8 +3,6 @@
 package n2p_memory;
 use strict;
 use warnings;
-use lib 'lib';
-use n2p_int_func qw(n2p_get_keyboard);
 
 sub new {
   my $class = shift;
@@ -13,6 +11,7 @@ sub new {
     rom       => [ (0) x 32768 ],
     ram       => [ (0) x 16384 ],
     screen    => [ (0) x 8192 ],
+    keyboard  => 0,
   };
   bless $self, $class;
   return $self;
@@ -51,8 +50,8 @@ sub ram {
     return $self->{screen}[$screen_addr] & 0xFFFF;
   }
   elsif ($addr == 24576) {
-    my $key = n2p_get_keyboard();
-    return defined $key ? ord($key) & 0xFFFF : 0;
+    $self->{keyboard} = $mem_in if $wr;
+    return $self->{keyboard};
   }
   else {
     return 0;

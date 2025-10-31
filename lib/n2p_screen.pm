@@ -6,12 +6,6 @@ use warnings;
 use lib 'lib';
 use n2p_memory;
 
-$SIG{INT} = sub {
-  print "\e[?25h";
-  print "\e[H";
-  exit;
-};
-
 sub new {
   my ($class, $type) = @_;
   my $self = {
