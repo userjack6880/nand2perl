@@ -40,7 +40,7 @@ sub new {
 }
 
 sub display {
-  my ($self, $mem) = @_;
+  my ($self, $mem, $cpu) = @_;
 
   if ($self->{type} eq 'pixel') {
     # nothing here
@@ -51,6 +51,11 @@ sub display {
     my $rows = 25;
     my @last_frame;
     my ($mem_loc, $char_val, $char, $index);
+
+    my (undef, undef, $reg_pc, undef, undef, $alu_busy) = $cpu->_debug();
+
+    printf "\e[%d;%dH%s", 2, 3, "\[NAND2PERL\]";
+    printf "\e[%d;%dH%s%016b%s%01b", 30, 3, "PC ", $reg_pc, " BUSY ", $alu_busy;
 
     # refresh loop
     for my $y (0 .. $rows - 1) {

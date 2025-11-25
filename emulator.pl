@@ -84,7 +84,7 @@ while(1) {
   ($mb, $mwr, $ma, $ra) =
     $cpu->tock($mem->rom($ra), $mem->ram($ma, $mwr, $mb), 0);
 
-  $screen->display($mem);
+  $screen->display($mem, $cpu);
   print "\n";
   debug_instruction($ra,$mem->rom($ra),$debug);
   print_debug(sprintf("mb: %016b mwr: %01b ma: %016b ra: %016b",$mb,$mwr,$ma,$ra),$debug);
